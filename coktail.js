@@ -47,10 +47,13 @@ const showDetail = async (coktailId) => {
 
   // destructuring properties
 
-  let {strDrink, strDrinkThumb, strInstructions } = coktail;
+  let { strDrink, strDrinkThumb, strInstructions, strAlcoholic, strCategory } =
+    coktail;
 
   //list of Ingredients
-  const ingredients = Object.keys(coktail).filter((prop) => prop.includes("strIngredient"));
+  const ingredients = Object.keys(coktail).filter((prop) =>
+    prop.includes("strIngredient")
+  );
 
   // console.log(ingredients);
 
@@ -65,12 +68,15 @@ const showDetail = async (coktailId) => {
   div.innerHTML = `
   <img class="rounded-lg" style="border-radius:10px !important" src="${strDrinkThumb}"/>
   <h1>${strDrink}</h1>
+    <h5>Drink Type : ${strAlcoholic}</h5>
+    <h5>Category: ${strCategory}</h5>
   <div>
    <h3>Ingredients</h3>
    <hr>
    <ul id="list">
    </ul>
   </div>
+  <hr>
   <h3>Preparation</h3>
   <hr>
   <p>${strInstructions}</p>
