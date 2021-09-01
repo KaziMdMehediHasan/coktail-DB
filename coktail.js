@@ -38,6 +38,8 @@ const showSearchResults = (coktails) => {
 };
 
 const showDetail = async (coktailId) => {
+
+  window.scrollTo(0, 100);
   const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${coktailId}`;
 
   const res = await fetch(url);
@@ -50,7 +52,7 @@ const showDetail = async (coktailId) => {
   let { strDrink, strDrinkThumb, strInstructions, strAlcoholic, strCategory } =
     coktail;
 
-  //list of Ingredients
+  //list of Ingredients and it's length
   const ingredients = Object.keys(coktail).filter((prop) =>
     prop.includes("strIngredient")
   );
@@ -82,30 +84,43 @@ const showDetail = async (coktailId) => {
   <p>${strInstructions}</p>
   `;
 
-
   parent.appendChild(div);
 
   //appending ingredients list
 
   const ul = document.getElementById("list");
-  for (let i = 0; i < ingredients.length; i++) {
-
+  for (let i = 1; i <= ingredients.length; i++) {
     // let ingredient = coktail.strIngredient+i;
 
     //accessing the ingredients text
-    let ingredient = coktail[ingredients[i]];
+    // let ingredient = coktail[ingredients[i]];
+
+    // to access ingredient
+    let ingredientKey = "strIngredient" + i;
+    //to access measurement
+    let measureKey = "strMeasure" + i;
+    console.log(coktail[ingredientKey]);
     // console.log(ingredient);
 
     // console.log(li.innerText);
 
-    if (ingredient !== null) {
+    // if (ingredient !== null && ingredient !== "") {
+    //   const li = document.createElement("li");
+    //   li.innerText = ingredient;
+    //   ul.appendChild(li);
+    // } else {
+    //   continue;
+    // }
+
+    // now showing the ingredients and measurement
+
+    if (coktail[ingredientKey] !== null && coktail[ingredientKey] !== "") {
       const li = document.createElement("li");
-      li.innerText = ingredient;
+      li.innerText = `${coktail[ingredientKey]} : ${coktail[measureKey]}`;
       ul.appendChild(li);
-    }else{
+    } else {
       continue;
     }
-
   }
 
   // console.log(data.drinks[0]);
